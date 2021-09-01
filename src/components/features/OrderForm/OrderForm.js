@@ -12,6 +12,8 @@ const OrderForm = (props) => (
       <Col md={4} key={option.id}>
         <OrderOption
           {...option}
+          currentvalue = {props.options[option.id]}
+          setOrderOption = {props.setOrderOption}
         />
       </Col>
     ))}
@@ -28,6 +30,7 @@ const OrderForm = (props) => (
 OrderForm.propTypes = {
   options: PropTypes.object,
   tripCost: PropTypes.string,
+  setOrderOption: PropTypes.func,
 };
 
 export default OrderForm;
