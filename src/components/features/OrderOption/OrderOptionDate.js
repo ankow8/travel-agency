@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import DatePicker from 'react-datepicker';
-import styles from '../../../../node_modules/react-datepicker/dist/react-datepicker.css';
+import styles from './OrderOption.scss';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 const OrderOptionDate = () => {
 
@@ -8,7 +9,7 @@ const OrderOptionDate = () => {
 
   return (
     <DatePicker
-      className={styles}
+      className={styles.input}
       selected={date}
       onSelect={handleDateSelect} //when day is clicked
       onChange={handleDateChange} //only when value has changed
