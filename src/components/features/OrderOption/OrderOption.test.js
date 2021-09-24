@@ -54,7 +54,7 @@ const mockPropsForType = {
 };
 
 const testValue = mockProps.values[1].id;
-//const testValueNumber = 3;
+const testValueNumber = 3;
 
 for(let type in optionTypes){
   describe(`Component OrderOption with type=${type}`, () => {
@@ -118,6 +118,13 @@ for(let type in optionTypes){
 
           const inputs = div.find('input[type="checkbox"]');
           expect(inputs.length).toBe(mockProps.values.length);
+          expect(inputs.at(0).prop('value')).toBe(mockProps.values[0].id);
+          expect(inputs.at(1).prop('value')).toBe(mockProps.values[1].id);
+        });
+        it('should run setOrderOption function on change', () => {
+          renderedSubcomponent.find('input').simulate('change', {currentTarget: {checked: true}}); //trzeba znalezc element, ktory ma atrybut value o wartosci takiej samej, jak wartosc stalej testValue.
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: [mockProps.currentValue, testValue] });
         });
         break;
       }
@@ -125,6 +132,11 @@ for(let type in optionTypes){
         it('contains DatePicker', () => {
           const datePicker = renderedSubcomponent.find(DatePicker);
           expect(datePicker.length).toBe(1);
+        });
+        it('should run setOrderOption function on change', () => {
+          renderedSubcomponent.find(DatePicker).simulate('change', testValue);
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue });
         });
         break;
       }
@@ -138,6 +150,13 @@ for(let type in optionTypes){
 
           const fillValue = div.find('Icon').not('[name="times-circle"]');
           expect(fillValue.length).toBe(mockProps.values.length);
+          expect(fillValue.at(0).prop('name')).toBe(mockProps.values[0].icon);
+          expect(fillValue.at(1).prop('name')).toBe(mockProps.values[1].icon);
+        });
+        it('should run setOrderOption function on click', () => {
+          renderedSubcomponent.find('div .icon').simulate('click');
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue });
         });
         break;
       }
@@ -149,6 +168,11 @@ for(let type in optionTypes){
           const input = div.find('input[type="number"]');
           expect(input.length).toBe(1);
         });
+        it('should run setOrderOption function on change', () => {
+          renderedSubcomponent.find('input').simulate('change', {currentTarget: {value: testValueNumber}});
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValueNumber });
+        });
         break;
       }
       case 'text': {
@@ -158,6 +182,11 @@ for(let type in optionTypes){
 
           const input = div.find('input[type="text"]');
           expect(input.length).toBe(1);
+        });
+        it('should run setOrderOption function on change', () => {
+          renderedSubcomponent.find('input').simulate('change', {currentTarget: {value: testValue}}); // do przekminienia
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue });
         });
         break;
       }
