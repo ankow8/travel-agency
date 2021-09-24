@@ -16,7 +16,7 @@ const optionTypes = {
   date: OrderOptionDate,
 };
 
-const OrderOption = ({name, type, id, setOrderOption, ...otherProps}) => {
+const OrderOption = ({name, type, id, setOrderOption, ...otherProps}) => {      // dlaczego name i type jest wymagane
   const OptionComponent = optionTypes[type];
   if(!OptionComponent){
     return null;
