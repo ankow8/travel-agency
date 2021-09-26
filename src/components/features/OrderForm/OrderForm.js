@@ -10,12 +10,15 @@ import {calculateTotal} from '../../../utils/calculateTotal';
 import settings from '../../../data/settings';
 
 
-const sendOrder = (options, tripCost) => {
+const sendOrder = (options, tripCost, tripName, tripId, countryCode) => {
   const totalCost = formatPrice(calculateTotal(tripCost, options));
 
   const payload = {
     ...options,
     totalCost,
+    tripName,
+    tripId,
+    countryCode,
   };
 
   const url = settings.db.url + '/' + settings.db.endpoint.orders;
@@ -37,7 +40,7 @@ const sendOrder = (options, tripCost) => {
     });
 };
 
-const OrderForm = ({tripCost, options, setOrderOption}) => (
+const OrderForm = ({tripCost, options, tripName, tripId, countryCode, setOrderOption}) => (
 
   <Row>
     {pricing.map((option) => (
@@ -55,7 +58,7 @@ const OrderForm = ({tripCost, options, setOrderOption}) => (
         tripCost = {tripCost}
       />
     </Col>
-    <Button onClick={() => sendOrder(options, tripCost)}>Order now!</Button>
+    <Button onClick={() => sendOrder(options, tripCost, tripName, tripId, countryCode)}>Order now!</Button>
   </Row>
 
 );
@@ -64,6 +67,9 @@ OrderForm.propTypes = {
   options: PropTypes.object,
   tripCost: PropTypes.string,
   setOrderOption: PropTypes.func,
+  tripName: PropTypes.string,
+  tripId: PropTypes.string,
+  countryCode: PropTypes.string,
 };
 
 export default OrderForm;
