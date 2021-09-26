@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 
 describe('Component OrderOption', () => {
   it('should render object', () => {
-    const component = shallow(<OrderOption type='' name='titleName' />);
+    const component = shallow(<OrderOption type='checkboxes' name='titleName' />);
     expect(component).toBeTruthy();
   });
   it('should return empty object if called without required props', () => {
@@ -14,7 +14,7 @@ describe('Component OrderOption', () => {
   });
   it('render object with title from name props', () => {
     const expectedTitle = 'titleName';
-    const component = shallow(<OrderOption type='' name={expectedTitle} />);
+    const component = shallow(<OrderOption type='checkboxes' name={expectedTitle} />);
     expect(component.find('h3').text()).toEqual(expectedTitle);
   });
 });
@@ -105,7 +105,7 @@ for(let type in optionTypes){
           expect(options.at(1).prop('value')).toBe(mockProps.values[1].id);
         });
         it('should run setOrderOption function on change', () => {
-          renderedSubcomponent.find('select').simulate('change', {currentTarget: {value: testValue}}); // do przekminienia
+          renderedSubcomponent.find('select').simulate('change', {currentTarget: {value: testValue}}); // do przekminienia, jak to do konca dziala
           expect(mockSetOrderOption).toBeCalledTimes(1);
           expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue });
         });
@@ -122,7 +122,7 @@ for(let type in optionTypes){
           expect(inputs.at(1).prop('value')).toBe(mockProps.values[1].id);
         });
         it('should run setOrderOption function on change', () => {
-          renderedSubcomponent.find('input').simulate('change', {currentTarget: {checked: true}}); //trzeba znalezc element, ktory ma atrybut value o wartosci takiej samej, jak wartosc stalej testValue.
+          renderedSubcomponent.find(`input[value="${testValue}"]`).simulate('change', {currentTarget: {checked: true}}); //trzeba znalezc element, ktory ma atrybut value o wartosci takiej samej, jak wartosc stalej testValue.
           expect(mockSetOrderOption).toBeCalledTimes(1);
           expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: [mockProps.currentValue, testValue] });
         });
@@ -154,7 +154,7 @@ for(let type in optionTypes){
           expect(fillValue.at(1).prop('name')).toBe(mockProps.values[1].icon);
         });
         it('should run setOrderOption function on click', () => {
-          renderedSubcomponent.find('div .icon').simulate('click');
+          renderedSubcomponent.find('div.icon').last().simulate('click');
           expect(mockSetOrderOption).toBeCalledTimes(1);
           expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue });
         });
@@ -184,7 +184,7 @@ for(let type in optionTypes){
           expect(input.length).toBe(1);
         });
         it('should run setOrderOption function on change', () => {
-          renderedSubcomponent.find('input').simulate('change', {currentTarget: {value: testValue}}); // do przekminienia
+          renderedSubcomponent.find('input').simulate('change', {currentTarget: {value: testValue}});
           expect(mockSetOrderOption).toBeCalledTimes(1);
           expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue });
         });
