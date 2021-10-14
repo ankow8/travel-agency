@@ -21,7 +21,9 @@ class HappyHourAd extends React.Component {
     const currentTime = new Date();
     const nextNoon = new Date(Date.UTC(currentTime.getUTCFullYear(), currentTime.getUTCMonth(), currentTime.getUTCDate(), 12, 0, 0, 0));
 
-    if(currentTime.getUTCHours() >= 12){
+    if(currentTime.getUTCHours() == 12){
+      return `It's a Happy Hour. You can take 20% discount!`;
+    } else if(currentTime.getUTCHours() >= 12){
       nextNoon.setUTCDate(currentTime.getUTCDate()+1);
     }
 
@@ -30,11 +32,12 @@ class HappyHourAd extends React.Component {
 
   render() {
     const {title} = this.props;
+    const countdownTime = this.getCountdownTime();
 
     return (
       <div className={styles.component}>
         <h3 className={styles.title}>{title}</h3>
-        <div className={styles.promoDescription}>{this.getCountdownTime()}</div>
+        <div className={styles.promoDescription}>{countdownTime}</div>
       </div>
     );
   }
