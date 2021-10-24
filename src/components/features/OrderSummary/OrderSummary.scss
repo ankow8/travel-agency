@@ -12,3 +12,17 @@
     background: $color-dark;
   }
 }
+
+.grey_component {
+  position: relative;
+  margin: ($base-size * 2) 0;
+  color: #808080;
+}
+
+h2.component {
+  margin-bottom: 0;
+}
+
+h3.grey_component {
+  margin-top: 0;
+}
